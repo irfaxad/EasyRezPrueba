@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <select asp-for="datosFacturacion.TipoPersona" class="form-select" id="selAETipoPersona" aria-label="Floating label select example">
+                    <select asp-for="datosFacturacion.TipoPersona" class="form-select" id="selAETipoPersona">
                         <option value="-1" selected disabled>-- Seleccione --</option>
                         <option value="119">Persona Física</option>
                         <option value="120">Persona Moral</option>
@@ -30,7 +30,7 @@
         <div class="row" id="divAERazonSocial">
             <div class="col-lg-8">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.RazonSocial" type="text" class="form-control" id="txtAERazonSocial" placeholder="EMPRESA S.A. DE C.V." value="" />
+                    <input asp-for="datosFacturacion.RazonSocial" type="text" class="form-control" id="txtAERazonSocial"/>
                     <label asp-for="datosFacturacion.RazonSocial" for="txtAERazonSocial">Razón Social</label>
                     <span asp-validation-for="datosFacturacion.RazonSocial" class="text-danger"></span>
                 </div>
@@ -50,7 +50,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.Nombres" type="text" class="form-control" id="txtAENombres" placeholder="JUAN" value="" />
+                    <input asp-for="datosFacturacion.Nombres" type="text" class="form-control" id="txtAENombres"/>
                     <label asp-for="datosFacturacion.Nombres" for="txtAENombres">Nombre(s)</label>
                     <span asp-validation-for="datosFacturacion.Nombres" class="text-danger"></span>
                 </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.ApPaterno" type="text" class="form-control" id="txtAEApPaterno" placeholder="SANCHEZ" value="" />
+                    <input asp-for="datosFacturacion.ApPaterno" type="text" class="form-control" id="txtAEApPaterno"/>
                     <label asp-for="datosFacturacion.ApPaterno" for="txtAEApPaterno">Apellido Paterno</label>
                     <span asp-validation-for="datosFacturacion.ApPaterno" class="text-danger"></span>
                 </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.ApMaterno" type="text" class="form-control" id="txtAEApMaterno" placeholder="PEREZ" value="" />
+                    <input asp-for="datosFacturacion.ApMaterno" type="text" class="form-control" id="txtAEApMaterno"/>
                     <label asp-for="datosFacturacion.ApMaterno" for="txtAEApMaterno">Apellido Materno</label>
                     <span asp-validation-for="datosFacturacion.ApMaterno" class="text-danger"></span>
                 </div>
@@ -80,7 +80,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.RFC" type="text" class="form-control" id="txtAERFC" placeholder="XAXX010101AAA" value="" />
+                    <input asp-for="datosFacturacion.RFC" type="text" class="form-control" id="txtAERFC"/>
                     <label asp-for="datosFacturacion.RFC" for="txtAERFC">RFC</label>
                     <span asp-validation-for="datosFacturacion.RFC" class="text-danger"></span>
                 </div>
@@ -90,7 +90,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.Correo" type="text" class="form-control" id="txtAECorreo" placeholder="name@example.com" value="" />
+                    <input asp-for="datosFacturacion.Correo" type="text" class="form-control" id="txtAECorreo"/>
                     <label asp-for="datosFacturacion.Correo" for="txtAECorreo">Correo</label>
                     <span asp-validation-for="datosFacturacion.Correo" class="text-danger"></span>
                 </div>
@@ -100,7 +100,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <select asp-for="datosFacturacion.TipoEntidadTributaria" class="form-select" id="selAETipoEntidad" aria-label="Floating label select example">
+                    <select asp-for="datosFacturacion.TipoEntidadTributaria" class="form-select" id="selAETipoEntidad">
                         <option value="-1" selected disabled>-- Seleccione --</option>
                         <option value="117">Cliente</option>
                         <option value="118">Emisor</option>
@@ -115,7 +115,7 @@
             </div>
             <div class="col-lg-8">
                 <div class="form-floating">
-                    <select asp-for="datosFacturacion.RegimenFiscal" class="form-select" id="selAERegimenFiscal" aria-label="Floating label select example">
+                    <select asp-for="datosFacturacion.RegimenFiscal" class="form-select" id="selAERegimenFiscal">
                         <option value="-1" selected disabled>-- Seleccione --</option>
                         <option value="9">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
                         <option value="13">620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos</option>
@@ -129,7 +129,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="form-floating">
-                    <select asp-for="datosFacturacion.UsoCFDI" class="form-select" id="selAERegimenFiscal" aria-label="Floating label select example">
+                    <select asp-for="datosFacturacion.UsoCFDI" class="form-select" id="selAERegimenFiscal">
                         <option value="-1" selected disabled>-- Seleccione --</option>
                         <option value="20">G01 - Adquisición de mercancías.</option>
                         <option value="21">G02 - Devoluciones, descuentos o bonificaciones.</option>

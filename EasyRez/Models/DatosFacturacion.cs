@@ -12,6 +12,7 @@ namespace EasyRez.Models
         [Range(1, int.MaxValue, ErrorMessage = "Se debe indicar el Tipo de Persona.")]
         public int TipoPersona { get; set; }
 
+        [ValidaRFCAttribute(Nombres, ApPaterno, ApMaterno, RazonSocial, ErrorMessage = "RFC no válido.")]
         [Required(ErrorMessage = "El RFC es obligatorio.")]
         public string? RFC { get; set; }
 
@@ -20,6 +21,7 @@ namespace EasyRez.Models
         public string? RazonSocial { get; set; }
 
         [Required(ErrorMessage = "El Nombre es obligatorio.")]
+        
         public string? Nombres { get; set; }
 
         public string? ApPaterno { get; set; }
@@ -81,24 +83,22 @@ namespace EasyRez.Models
         public String ApPaterno { get; set; }
         public String ApMaterno { get; set; }
         public String RazonSocial { get; set; }
-        public String RFC { get; set; }
 
-        public ValidaRFCAttribute(String nombre, String apPaterno, String apMaterno, String razonSocial, String rfc)
+        public ValidaRFCAttribute(String nombre, String apPaterno, String apMaterno, String razonSocial)
         {
             Nombre = nombre;
             ApPaterno = apPaterno;
             ApMaterno = apMaterno;
             RazonSocial = razonSocial;
-            RFC = rfc;
         }
 
         public override bool IsValid(object value)
         {
             Type objectType = value.GetType();
 
-            PropertyInfo[] RFCfields = objectType.GetProperties().Where(propertyInfo => propertyInfo.Name == Nombre || propertyInfo.Name == ApPaterno || propertyInfo.Name == ApMaterno || propertyInfo.Name == RazonSocial || propertyInfo.Name == RFC).ToArray();
+            PropertyInfo[] RFCfields = objectType.GetProperties().Where(propertyInfo => propertyInfo.Name == Nombre || propertyInfo.Name == ApPaterno || propertyInfo.Name == ApMaterno || propertyInfo.Name == RazonSocial).ToArray();
 
-            if (RFCfields.Count() < 2)
+            if (RFCfields.Count() < 1)
             {
                 throw new ApplicationException("ValidaRFCAttribute error on " + objectType.Name);
             }
