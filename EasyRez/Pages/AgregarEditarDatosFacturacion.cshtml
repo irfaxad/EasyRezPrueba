@@ -1,0 +1,104 @@
+﻿@page
+@model EasyRez.Pages.AgregarEditarDatosFacturacionModel
+@{
+    ViewData["Title"] = "Agregar/Editar";
+}
+<h2>Sistema Prueba de Easy-Rez</h2>
+<hr />
+
+
+<form method="post">
+    
+    <input type="hidden" asp-for="datosFacturacion.IdDatoFacturacion" value = "0" />
+    <div >
+        <div class="col-6 col-md-4">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.RazonSocial" >Razón Social</label>
+                <input asp-for="datosFacturacion.RazonSocial"  />               
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.RFC" >RFC</label>
+                <input asp-for="datosFacturacion.RFC"  />                
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.Correo" >Correo</label>
+                <input asp-for="datosFacturacion.Correo" />                
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-6 col-md-6">
+            <div class="form-group row">
+                <label asp-for="datosFacturacion.TipoPersona" class="col-sm-3 col-form-label">Tipo de Persona:</label>
+                <div class="col-sm-9">
+                    <select asp-for="datosFacturacion.TipoPersona" >
+                        <option value="-1">-- Seleccione --</option>
+                        <option value="119">Persona Física</option>
+                        <option value="120">Persona Moral</option>
+                    </select>                   
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-md-3">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.TipoPersona" >Es sucursal</label>
+                <input class="form-check-input demo" asp-for="datosFacturacion.EsSucursal" />               
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-6 col-md-6">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.TipoEntidadTributaria" >Tipo Entidad Tributaria:</label>
+                <select asp-for="datosFacturacion.TipoEntidadTributaria">
+                    <option value="-1">-- Seleccione --</option>
+                    <option value="117">Cliente</option>
+                    <option value="118">Emisor</option>
+                    <option value="126">Proveedor PAC</option>
+                </select>               
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-md-8">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.RegimenFiscal" class="control-label">Regimen Fiscal:</label>
+                <select asp-for="datosFacturacion.RegimenFiscal">
+                    <option value="-1">-- Seleccione --</option>
+                    <option value="9">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
+                    <option value="13">620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos</option>
+                </select>                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-md-8">
+            <div class="form-group">
+                <label asp-for="datosFacturacion.UsoCFDI" class="control-label">Uso CFDI:</label>
+                <select asp-for="datosFacturacion.UsoCFDI">
+                    <option value="-1">-- Seleccione --</option>
+                    <option value="20">G01 - Adquisición de mercancías.</option>
+                    <option value="21">G02 - Devoluciones, descuentos o bonificaciones.</option>
+                    <option value="22">G03 - Gastos en general.</option>
+                </select>                
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-4 align-self-end offset-md-8">
+            <div class="form-group">
+                <input type="button" value="Cancelar" class="btn btn-danger float-right" onclick="window.history.go(-1); return false;" />
+                <input type="submit" value="Guardar" class="btn btn-success float-right" />
+            </div>
+        </div>
+    </div>
+</form>
+
