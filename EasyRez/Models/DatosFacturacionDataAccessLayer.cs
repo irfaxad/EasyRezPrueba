@@ -5,7 +5,9 @@ namespace EasyRez.Models
 {
     public class DatosFacturacionDataAccessLayer
     {
-        string connectionString = "Data Source=DESKTOP-4MPVROB\\SQLEXPRESS;Initial Catalog=EasyRez;User ID=EasyRez;Password=EasyRez2022;Application Name=EasyRez";
+        // string connectionString = "Data Source=DESKTOP-4MPVROB\\SQLEXPRESS;Initial Catalog=EasyRez;User ID=EasyRez;Password=EasyRez2022;Application Name=EasyRez";
+
+        string connectionString = "Data Source=(local);Initial Catalog=EasyRez;Integrated Security=true";
 
         public IEnumerable<DatosFacturacion> GetAllDatosFacturacion(int IdTipoEntidadTributaria)
         {

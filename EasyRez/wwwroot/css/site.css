@@ -1,18 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    font-family: 'Roboto', sans-serif;
 }
+
+/* CUSTOM STYLES */
+
+#imgMainLogo {
+    width: 100px;
+    transition: all ease-out 500ms
+}
+
+    #imgMainLogo:hover {
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+    }
+
+.stroke {
+    position: relative;
+}
+
+    .stroke:after {
+        position: absolute;
+        transition: all ease-out 200ms;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        width: 0%;
+        content: '.';
+        color: transparent;
+        background: #aaa;
+        height: 2px;
+    }
+
+    .stroke:hover:after {
+        width: 100%;
+    }
+
+.divPrivacy {
+    font-family: Montserrat;
+    width: 80%;
+    margin: 0 auto;
+    text-align: justify;
+}
+
+    .divPrivacy h1 {
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    .divPrivacy a {
+        color: black;
+        text-decoration: none;
+        position: relative;
+    }
+
+        .divPrivacy a::after {
+            position: absolute;
+            transition: all ease 400ms;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            /* margin: auto; */
+            width: 0%;
+            content: '.';
+            color: transparent;
+            background: #aaa;
+            height: 2px;
+        }
+
+        .divPrivacy a:hover:after {
+            width: 100%;
+        }
+
+.titlePrivacy {
+    font-weight: bold;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.divDev {
+    background-color: #eee;
+    margin: 0 auto;
+}
+
+    .divDev:hover {
+        transition: all ease 10s;
+    }
+
+        .divDev:hover:before {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(-45deg, #26a8b2 0%, #9bafd9 100% );
+            transform: translate3d(0px, 20px, 0) scale(0.95);
+            filter: blur(10px);
+            opacity: 0.7;
+            transition: opacity ease 10s;
+            border-radius: inherit;
+        }
+
+        .divDev:hover::after {
+            content: "";
+            z-index: -1;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: inherit;
+            border-radius: inherit;
+        }
+
+    .divDev .card-img-top {
+        transition: all 500ms
+    }
+
+        .divDev .card-img-top:hover {
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+        }
+
+    .divDev .card-body-title {
+        color: black;
+    }
+
+    .divDev a {
+        color: black;
+        text-decoration: none;
+        position: relative;
+    }
+
+        .divDev a > i {
+            color: #0f66be;
+        }
+
+        .divDev a:after {
+            position: absolute;
+            transition: all ease 400ms;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 0 0 -3px 0;
+            width: 0%;
+            content: '.';
+            color: transparent;
+            background: #e4274a;
+            height: 2px;
+        }
+
+        .divDev a:hover:after {
+            width: 100%;
+        }
+
+    .divDev .list-group-spaced {
+        display: flex;
+        justify-content: space-around;
+    }
