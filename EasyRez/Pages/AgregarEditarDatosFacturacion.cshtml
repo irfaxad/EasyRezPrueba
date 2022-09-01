@@ -7,14 +7,14 @@
 <hr />
 
 
-<form method="post">
+<form method="post" id="frmCaptura">
 
     <input type="hidden" asp-for="datosFacturacion.IdDatoFacturacion" value="0" />
     <div>
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <select asp-for="datosFacturacion.TipoPersona" class="form-select" id="selAETipoPersona">
+                    <select asp-for="datosFacturacion.TipoPersona" class="form-select" id="selAETipoPersona" onchange="showDivName();">
                         <option value="-1" selected disabled>-- Seleccione --</option>
                         <option value="119">Persona Física</option>
                         <option value="120">Persona Moral</option>
@@ -27,10 +27,13 @@
             <span asp-validation-for="datosFacturacion.TipoPersona" class="text-danger"></span>
         </div>
         <br />
-        <div class="row" id="divAERazonSocial">
+        <div id="divMessageSelect">
+            <p>Seleccione el Tipo de Persona Fiscal para continuar.</p>
+        </div>
+        <div class="row divPersonaMoral d-none" id="divAERazonSocial">
             <div class="col-lg-8">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.RazonSocial" type="text" class="form-control" id="txtAERazonSocial"/>
+                    <input asp-for="datosFacturacion.RazonSocial" type="text" class="form-control" id="txtAERazonSocial" />
                     <label asp-for="datosFacturacion.RazonSocial" for="txtAERazonSocial">Razón Social</label>
                     <span asp-validation-for="datosFacturacion.RazonSocial" class="text-danger"></span>
                 </div>
@@ -46,11 +49,13 @@
                 </div>
             </div>
         </div>
-        <br />
-        <div class="row" id="divAENombre">
+        <div class="divPersonaMoral d-none">
+            <br />
+        </div>
+        <div class="row divPersonaFisica d-none" id="divAENombre">
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.Nombres" type="text" class="form-control" id="txtAENombres"/>
+                    <input asp-for="datosFacturacion.Nombres" type="text" class="form-control" id="txtAENombres" />
                     <label asp-for="datosFacturacion.Nombres" for="txtAENombres">Nombre(s)</label>
                     <span asp-validation-for="datosFacturacion.Nombres" class="text-danger"></span>
                 </div>
@@ -60,7 +65,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.ApPaterno" type="text" class="form-control" id="txtAEApPaterno"/>
+                    <input asp-for="datosFacturacion.ApPaterno" type="text" class="form-control" id="txtAEApPaterno" />
                     <label asp-for="datosFacturacion.ApPaterno" for="txtAEApPaterno">Apellido Paterno</label>
                     <span asp-validation-for="datosFacturacion.ApPaterno" class="text-danger"></span>
                 </div>
@@ -70,13 +75,15 @@
             </div>
             <div class="col-lg-4">
                 <div class="form-floating">
-                    <input asp-for="datosFacturacion.ApMaterno" type="text" class="form-control" id="txtAEApMaterno"/>
+                    <input asp-for="datosFacturacion.ApMaterno" type="text" class="form-control" id="txtAEApMaterno" />
                     <label asp-for="datosFacturacion.ApMaterno" for="txtAEApMaterno">Apellido Materno</label>
                     <span asp-validation-for="datosFacturacion.ApMaterno" class="text-danger"></span>
                 </div>
             </div>
         </div>
-        <br />
+        <div class="divPersonaFisica d-none">
+            <br />
+        </div>
         <div class="row">
             <div class="col-lg-4">
                 <div class="form-floating">
@@ -146,7 +153,7 @@
         <div class="col">
             <div class="d-flex justify-content-end">
                 <input type="button" value="Cancelar" class="btn btn-danger" onclick="window.history.go(-1); return false;" />
-                <input type="submit" value="Guardar" class="btn btn-success ms-1" />
+                <input type="submit" value="Guardar" class="btn btn-success ms-1" id="btnSaveCapture"/>
             </div>
         </div>
     </div>
