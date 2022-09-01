@@ -3,7 +3,19 @@
 @{
     ViewData["Title"] = "Validación de archivo";
 }
-<h2>Sistema Prueba de Easy-Rez</h2>
+<div class="row">
+    <div class="col-8 align-self-start">
+        <h2>Sistema Prueba de Easy-Rez</h2>
+        <h5>@ViewData["Title"]</h5>
+    </div>
+</div>
 <hr />
 
-<p>En esta página se desarrollará la Validación de archivos.</p>
+<p>En este módulo se procesan los archivos de Cobranza Domiciliada.</p>
+<form method="post">
+    <div class="mb-3">
+        <label for="formFile" class="form-label">Archivo a procesar:</label>
+        <input class="form-control" type="file" id="formFile">
+    </div>
+    <input type="submit" value="Enviar" />
+</form>
