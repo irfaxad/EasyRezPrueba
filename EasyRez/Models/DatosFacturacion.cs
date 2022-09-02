@@ -116,16 +116,9 @@ namespace EasyRez.Models
                 {
                     arrApMaterno = DeleteCommonNames(DeleteConjunctions(TextToArray(PurgeText(vApMaterno))));
                 }
-
-                // Regla PF: Apellido Paterno tiene 2 letras o menos
-                if (vApMaterno != null && arrApPaterno[0].Length <= 2)
-                {
-                    RFCgen.Add(GetLeftChars(arrApPaterno[0], 1));
-                    RFCgen.Add(GetLeftChars(arrApMaterno[0], 1));
-                    RFCgen.Add(GetLeftChars(arrNombres[0], 2));
-                }
+                
                 // Regla PF: No hay Apellido Paterno
-                else if (vApPaterno == null)
+                if (vApPaterno == null)
                 {
                     RFCgen.Add(GetLeftChars(arrApMaterno[0], 1));
                     RFCgen.Add(FindFirstVowel(arrApMaterno[0]));
@@ -136,6 +129,13 @@ namespace EasyRez.Models
                 {
                     RFCgen.Add(GetLeftChars(arrApPaterno[0], 1));
                     RFCgen.Add(FindFirstVowel(arrApPaterno[0]));
+                    RFCgen.Add(GetLeftChars(arrNombres[0], 2));
+                }
+                // Regla PF: Apellido Paterno tiene 2 letras o menos
+                else if (vApMaterno != null && arrApPaterno[0].Length <= 2)
+                {
+                    RFCgen.Add(GetLeftChars(arrApPaterno[0], 1));
+                    RFCgen.Add(GetLeftChars(arrApMaterno[0], 1));
                     RFCgen.Add(GetLeftChars(arrNombres[0], 2));
                 }
                 // Regla PF: No hay más vocales en Apellido Paterno
