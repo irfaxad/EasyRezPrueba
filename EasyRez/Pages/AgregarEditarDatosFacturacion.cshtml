@@ -1,102 +1,157 @@
 ﻿@page
 @model EasyRez.Pages.AgregarEditarDatosFacturacionModel
 @{
-    ViewData["Title"] = "Agregar/Editar";
+    ViewData["Title"] = "Agregar/Editar RFC";
 }
-<h2>Sistema Prueba de Easy-Rez</h2>
+<div class="row">
+    <div class="col-8 align-self-start">
+        <h2>Sistema Prueba de Easy-Rez</h2>
+        <h5>@ViewData["Title"]</h5>
+    </div>
+</div>
 <hr />
 
 
 <form method="post">
-    
-    <input type="hidden" asp-for="datosFacturacion.IdDatoFacturacion" value = "0" />
-    <div >
-        <div class="col-6 col-md-4">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.RazonSocial" >Razón Social</label>
-                <input asp-for="datosFacturacion.RazonSocial"  />               
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.RFC" >RFC</label>
-                <input asp-for="datosFacturacion.RFC"  />                
-            </div>
-        </div>
-        <div class="col-6 col-md-3">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.Correo" >Correo</label>
-                <input asp-for="datosFacturacion.Correo" />                
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-6 col-md-6">
-            <div class="form-group row">
-                <label asp-for="datosFacturacion.TipoPersona" class="col-sm-3 col-form-label">Tipo de Persona:</label>
-                <div class="col-sm-9">
-                    <select asp-for="datosFacturacion.TipoPersona" >
-                        <option value="-1">-- Seleccione --</option>
+
+    <input type="hidden" asp-for="datosFacturacion.IdDatoFacturacion" value="0" />
+    <div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-floating">
+                    <select asp-for="datosFacturacion.TipoPersona" class="form-select" id="selAETipoPersona">
+                        <option value="-1" selected disabled>-- Seleccione --</option>
                         <option value="119">Persona Física</option>
                         <option value="120">Persona Moral</option>
-                    </select>                   
+                    </select>
+                    <label for="selAETipoPersona" asp-for="datosFacturacion.TipoPersona">Tipo de persona</label>
                 </div>
             </div>
         </div>
-
-        <div class="col-6 col-md-3">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.TipoPersona" >Es sucursal</label>
-                <input class="form-check-input demo" asp-for="datosFacturacion.EsSucursal" />               
+        <div class="row">
+            <span asp-validation-for="datosFacturacion.TipoPersona" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="row" id="divAERazonSocial">
+            <div class="col-lg-8">
+                <div class="form-floating">
+                    <input asp-for="datosFacturacion.RazonSocial" type="text" class="form-control" id="txtAERazonSocial"/>
+                    <label asp-for="datosFacturacion.RazonSocial" for="txtAERazonSocial">Razón Social</label>
+                    <span asp-validation-for="datosFacturacion.RazonSocial" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-block d-lg-none">
+                <br />
+            </div>
+            <div class="col-lg-4">
+                <div class="form-check">
+                    <input asp-for="datosFacturacion.EsSucursal" class="form-check-input demo" type="checkbox" value="" id="chkAESucursal" />
+                    <label asp-for="datosFacturacion.TipoPersona" for="chkAESucursal">Es sucursal</label>
+                    <span asp-validation-for="datosFacturacion.EsSucursal" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row" id="divAENombre">
+            <div class="col-lg-4">
+                <div class="form-floating">
+                    <input asp-for="datosFacturacion.Nombres" type="text" class="form-control" id="txtAENombres"/>
+                    <label asp-for="datosFacturacion.Nombres" for="txtAENombres">Nombre(s)</label>
+                    <span asp-validation-for="datosFacturacion.Nombres" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-block d-lg-none">
+                <br />
+            </div>
+            <div class="col-lg-4">
+                <div class="form-floating">
+                    <input asp-for="datosFacturacion.ApPaterno" type="text" class="form-control" id="txtAEApPaterno"/>
+                    <label asp-for="datosFacturacion.ApPaterno" for="txtAEApPaterno">Apellido Paterno</label>
+                    <span asp-validation-for="datosFacturacion.ApPaterno" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-block d-lg-none">
+                <br />
+            </div>
+            <div class="col-lg-4">
+                <div class="form-floating">
+                    <input asp-for="datosFacturacion.ApMaterno" type="text" class="form-control" id="txtAEApMaterno"/>
+                    <label asp-for="datosFacturacion.ApMaterno" for="txtAEApMaterno">Apellido Materno</label>
+                    <span asp-validation-for="datosFacturacion.ApMaterno" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-floating">
+                    <input asp-for="datosFacturacion.RFC" type="text" class="form-control" id="txtAERFC"/>
+                    <label asp-for="datosFacturacion.RFC" for="txtAERFC">RFC</label>
+                    <span asp-validation-for="datosFacturacion.RFC" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-block d-lg-none">
+                <br />
+            </div>
+            <div class="col-lg-8">
+                <div class="form-floating">
+                    <input asp-for="datosFacturacion.Correo" type="text" class="form-control" id="txtAECorreo"/>
+                    <label asp-for="datosFacturacion.Correo" for="txtAECorreo">Correo</label>
+                    <span asp-validation-for="datosFacturacion.Correo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="form-floating">
+                    <select asp-for="datosFacturacion.TipoEntidadTributaria" class="form-select" id="selAETipoEntidad">
+                        <option value="-1" selected disabled>-- Seleccione --</option>
+                        <option value="117">Cliente</option>
+                        <option value="118">Emisor</option>
+                        <option value="126">Proveedor PAC</option>
+                    </select>
+                    <label for="selAETipoEntidad" asp-for="datosFacturacion.TipoEntidadTributaria">Tipo Entidad Tributaria</label>
+                    <span asp-validation-for="datosFacturacion.TipoEntidadTributaria" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-block d-lg-none">
+                <br />
+            </div>
+            <div class="col-lg-8">
+                <div class="form-floating">
+                    <select asp-for="datosFacturacion.RegimenFiscal" class="form-select" id="selAERegimenFiscal">
+                        <option value="-1" selected disabled>-- Seleccione --</option>
+                        <option value="9">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
+                        <option value="13">620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos</option>
+                    </select>
+                    <label for="selAERegimenFiscal" asp-for="datosFacturacion.RegimenFiscal">Régimen Fiscal</label>
+                    <span asp-validation-for="datosFacturacion.RegimenFiscal" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-floating">
+                    <select asp-for="datosFacturacion.UsoCFDI" class="form-select" id="selAERegimenFiscal">
+                        <option value="-1" selected disabled>-- Seleccione --</option>
+                        <option value="20">G01 - Adquisición de mercancías.</option>
+                        <option value="21">G02 - Devoluciones, descuentos o bonificaciones.</option>
+                        <option value="22">G03 - Gastos en general.</option>
+                    </select>
+                    <label for="selAERegimenFiscal" asp-for="datosFacturacion.UsoCFDI">Uso del CFDI</label>
+                    <span asp-validation-for="datosFacturacion.UsoCFDI" class="text-danger"></span>
+                </div>
             </div>
         </div>
     </div>
-    <br />
+    <hr />
     <div class="row">
-        <div class="col-6 col-md-6">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.TipoEntidadTributaria" >Tipo Entidad Tributaria:</label>
-                <select asp-for="datosFacturacion.TipoEntidadTributaria">
-                    <option value="-1">-- Seleccione --</option>
-                    <option value="117">Cliente</option>
-                    <option value="118">Emisor</option>
-                    <option value="126">Proveedor PAC</option>
-                </select>               
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6 col-md-8">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.RegimenFiscal" class="control-label">Regimen Fiscal:</label>
-                <select asp-for="datosFacturacion.RegimenFiscal">
-                    <option value="-1">-- Seleccione --</option>
-                    <option value="9">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
-                    <option value="13">620 - Sociedades Cooperativas de Producción que optan por diferir sus ingresos</option>
-                </select>                
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-6 col-md-8">
-            <div class="form-group">
-                <label asp-for="datosFacturacion.UsoCFDI" class="control-label">Uso CFDI:</label>
-                <select asp-for="datosFacturacion.UsoCFDI">
-                    <option value="-1">-- Seleccione --</option>
-                    <option value="20">G01 - Adquisición de mercancías.</option>
-                    <option value="21">G02 - Devoluciones, descuentos o bonificaciones.</option>
-                    <option value="22">G03 - Gastos en general.</option>
-                </select>                
-            </div>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-md-4 align-self-end offset-md-8">
-            <div class="form-group">
-                <input type="button" value="Cancelar" class="btn btn-danger float-right" onclick="window.history.go(-1); return false;" />
-                <input type="submit" value="Guardar" class="btn btn-success float-right" />
+        <div class="col">
+            <div class="d-flex justify-content-end">
+                <input type="button" value="Cancelar" class="btn btn-danger" onclick="window.history.go(-1); return false;" />
+                <input type="submit" value="Guardar" class="btn btn-success ms-1" />
             </div>
         </div>
     </div>

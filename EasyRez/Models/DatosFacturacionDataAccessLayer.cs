@@ -5,7 +5,9 @@ namespace EasyRez.Models
 {
     public class DatosFacturacionDataAccessLayer
     {
-        string connectionString = "Data Source=DESKTOP-4MPVROB\\SQLEXPRESS;Initial Catalog=EasyRez;User ID=EasyRez;Password=EasyRez2022;Application Name=EasyRez";
+        // string connectionString = "Data Source=DESKTOP-4MPVROB\\SQLEXPRESS;Initial Catalog=EasyRez;User ID=EasyRez;Password=EasyRez2022;Application Name=EasyRez";
+
+        string connectionString = "Data Source=(local);Initial Catalog=EasyRez;Integrated Security=true";
 
         public IEnumerable<DatosFacturacion> GetAllDatosFacturacion(int IdTipoEntidadTributaria)
         {
@@ -46,6 +48,21 @@ namespace EasyRez.Models
 
         public void AgregarEditarDatosFacturacion(DatosFacturacion datosFacturacion)
         {
+            string txtRazonSocial = "";
+            string nombres = datosFacturacion.Nombres ?? "";
+            string apPaterno = datosFacturacion.ApPaterno ?? "";
+            string apMaterno = datosFacturacion.ApMaterno ?? "";
+            string razonSocial = datosFacturacion.RazonSocial ?? "";
+
+            if(datosFacturacion.TipoPersona == 119)
+            {
+                txtRazonSocial = nombres + " " + apPaterno + " " + apMaterno;
+            }
+            else if(datosFacturacion.TipoPersona == 120)
+            {
+                txtRazonSocial = razonSocial;
+            }
+            
             using (SqlConnection con = new SqlConnection(connectionString))
             {
                 SqlCommand cmd = new SqlCommand("spAgregarEditarDatosFacturacion", con);
@@ -54,7 +71,7 @@ namespace EasyRez.Models
                 cmd.Parameters.AddWithValue("@IdDatoFacturacion", datosFacturacion.IdDatoFacturacion);
                 cmd.Parameters.AddWithValue("@TipoPersona", datosFacturacion.TipoPersona);
                 cmd.Parameters.AddWithValue("@RFC", datosFacturacion.RFC);
-                cmd.Parameters.AddWithValue("@RazonSocial", datosFacturacion.RazonSocial);
+                cmd.Parameters.AddWithValue("@RazonSocial", txtRazonSocial);
                 cmd.Parameters.AddWithValue("@UsoCFDI", datosFacturacion.UsoCFDI);
                 cmd.Parameters.AddWithValue("@RegimenFiscal", datosFacturacion.RegimenFiscal);
                 cmd.Parameters.AddWithValue("@EsSucursal", datosFacturacion.EsSucursal);

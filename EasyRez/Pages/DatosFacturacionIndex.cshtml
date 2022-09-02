@@ -1,139 +1,152 @@
 ﻿@page
 @model EasyRez.Pages.DatosFacturacionIndexModel
 @{
+    ViewData["Title"] = "Consultar RFC";
 }
 <div class="row">
     <div class="col-8 align-self-start">
         <h2>Sistema Prueba de Easy-Rez</h2>
-    </div>
-    <div class="col-4 align-self-end">
-        <div class="row">
-
-
-            <div class="col-sm-12 align-self-center">
-                @if (Model.lstDatosFacturacionActual.PaginaActual > 1)
-                {
-                    @Html.ActionLink("<< Anterior", "Anterior", new { pagina = Model.lstDatosFacturacionActual.PaginaActual -1,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria},
-                new { @class = "btn btn-sm btn-default" })
-                }
-                else
-                {
-                    @Html.ActionLink("<< Anterior", "Anterior", new { pagina = 1 ,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria},
-                new { @class = "btn btn-sm btn-default disabled" })
-                }
-                <span></span>
-                @if (Model.lstDatosFacturacionActual.PaginaActual < Model.lstDatosFacturacionActual.TotalPaginas)
-                {
-                    @Html.ActionLink("Siguiente >>", "Siguiente", new { pagina = Model.lstDatosFacturacionActual.PaginaActual + 1,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria },
-                new { @class = "btn btn-sm btn-default" })
-                }
-                else
-                {
-                    @Html.ActionLink("Siguiente >>", "Siguiente", new { pagina = Model.lstDatosFacturacionActual.TotalPaginas + 1 ,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria},
-                new { @class = "btn btn-sm btn-default disabled" })
-                }
-            </div>
-
-        </div>
+        <h5>@ViewData["Title"]</h5>
     </div>
 </div>
 <hr />
 
-<div class="form-group row">
-    <label for="inputPassword" class="col-sm-1 col-form-label">Buscar por:</label>
-    <div class="col-sm-3">
-        <select onchange="BusquedaPor()" asp-for="lstDatosFacturacionActual.TipoEntidadTributaria" >
-            <option value="-1">-- Seleccione --</option>
-            <option value="117">Cliente</option>
-            <option value="118">Emisor</option>
-            <option value="126">Proveedor PAC</option>
-        </select>
+<div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-floating">
+                <select onchange="BusquedaPor()" asp-for="lstDatosFacturacionActual.TipoEntidadTributaria" class="form-select" id="selDBuscar">
+                    <option value="-1" selected disabled>-- Seleccione --</option>
+                    <option value="119">Persona Física</option>
+                    <option value="120">Persona Moral</option>
+                </select>
+                <label for="selDBuscar">Buscar por:</label>
+            </div>
+        </div>
+        <div class="d-block d-lg-none">
+            <br />
+        </div>
+        <div class="col-lg-8 d-flex justify-content-end h-50">
+            @if (Model.lstDatosFacturacionActual.PaginaActual > 1)
+            {
+                @Html.ActionLink("<< Anterior", "Anterior", new { pagina = Model.lstDatosFacturacionActual.PaginaActual -1,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria},
+            new { @class = "btn btn-sm btn-primary" })
+            }
+            else
+            {
+                @Html.ActionLink("<< Anterior", "Anterior", new { pagina = 1 ,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria},
+            new { @class = "btn btn-sm btn-secondary disabled" })
+            }
+            <span></span>
+            @if (Model.lstDatosFacturacionActual.PaginaActual < Model.lstDatosFacturacionActual.TotalPaginas)
+            {
+                @Html.ActionLink("Siguiente >>", "Siguiente", new { pagina = Model.lstDatosFacturacionActual.PaginaActual + 1,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria },
+            new { @class = "btn btn-sm btn-primary ms-1" })
+            }
+            else
+            {
+                @Html.ActionLink("Siguiente >>", "Siguiente", new { pagina = Model.lstDatosFacturacionActual.TotalPaginas + 1 ,tipoEntidadTributaria = Model.lstDatosFacturacionActual.TipoEntidadTributaria},
+            new { @class = "btn btn-sm btn-secondary disabled ms-1" })
+            }
+        </div>
     </div>
-    <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].StrTipoPersona" class="col-sm-1 col-form-label">Tipo: </label>
-    <div class="col-sm-4">
-        <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].StrTipoPersona"  />
+    <br />
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-floating">
+                <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].StrTipoPersona" class="form-control" id="txtDTipoPersona" readonly />
+                <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].StrTipoPersona" for="txtDTipoPersona">Tipo</label>
+            </div>
+        </div>
+        <div class="d-block d-lg-none">
+            <br />
+        </div>
+        <div class="col-lg-8">
+            <div class="form-floating">
+                <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RazonSocial" class="form-control" id="txtDRazonSocial" readonly />
+                <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RazonSocial" for="txtDRazonSocial">Razón Social</label>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-floating">
+                <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RFC" class="form-control" id="txtDRFC" readonly />
+                <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RFC" for="txtDRFC">RFC</label>
+            </div>
+        </div>
+        <div class="d-block d-lg-none">
+            <br />
+        </div>
+        <div class="col-lg-8">
+            <div class="form-floating">
+                <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].Correo" class="form-control" id="txtDCorreo" readonly />
+                <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].Correo" for="txtDCorreo">Correo electrónico</label>
+            </div>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-6 col-md-4">
-        <div class="form-group">
-            <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RazonSocial">Razón Social</label>
-            <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RazonSocial"  />
-            <span class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-6 col-md-3">
-        <div class="form-group">
-            <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RFC" class="control-label">RFC</label>
-            <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].RFC" class="form-control" />
-            <span class="text-danger"></span>
-        </div>
-    </div>
-    <div class="col-6 col-md-3">
-        <div class="form-group">
-            <label asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].Correo" >Correo</label>
-            <input asp-for="lstDatosFacturacionActual.Resultado.ToList()[0].Correo"  />
-            <span class="text-danger"></span>
-        </div>
-    </div>
+<br />
+<div class="table-responsive">
+    <table class="table table-hover" id="tblDDatosFacturacion">
+        <thead>
+            <tr class="table-primary">
+                <th>
+                    @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrMetodoPago)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrUsoCFDIClave)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrUsoCFDIDescripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrTipoPersona)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrRegimenFiscalClave)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrRegimenFiscalDescripcion)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.lstDatosFacturacionActual.Resultado.ToList())
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrMetodoPago)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrUsoCFDIClave)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrUsoCFDIDescripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrTipoPersona)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrRegimenFiscalClave)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StrRegimenFiscalDescripcion)
+                    </td>
+                    <td>
+                        <a asp-page="./AgregarEditarDatosFacturacion" asp-route-id="@item.IdDatoFacturacion">Ver</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrMetodoPago)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrUsoCFDIClave)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrUsoCFDIDescripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrTipoPersona)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrRegimenFiscalClave)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.lstDatosFacturacionActual.Resultado.ToList()[0].StrRegimenFiscalDescripcion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.lstDatosFacturacionActual.Resultado.ToList())
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StrMetodoPago)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StrUsoCFDIClave)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StrUsoCFDIDescripcion)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StrTipoPersona)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StrRegimenFiscalClave)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StrRegimenFiscalDescripcion)
-                </td>
-                <td>
-                    <a asp-page="./AgregarEditarDatosFacturacion" asp-route-id="@item.IdDatoFacturacion">Ver</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 <script>
     function BusquedaPor() {
         d = document.getElementById("lstDatosFacturacionActual_TipoEntidadTributaria").value;
-        document.location.href = '/DatosFacturacionIndex?tipoEntidadTributaria='+d;
+        document.location.href = '/DatosFacturacionIndex?tipoEntidadTributaria=' + d;
     }
 </script>
