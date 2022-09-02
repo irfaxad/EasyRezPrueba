@@ -12,10 +12,36 @@
 <hr />
 
 <p>En este módulo se procesan los archivos de Cobranza Domiciliada.</p>
-<form method="post">
-    <div class="mb-3">
-        <label for="formFile" class="form-label">Archivo a procesar:</label>
-        <input class="form-control" type="file" id="formFile">
+<form method="post" id="frmUploadFile">
+    <div class="input-group">
+        <input type="file" class="form-control" id="txtUploadFile" aria-describedby="inputGroupFile" aria-label="Cargar">
+        <button class="btn btn-outline-secondary" type="submit" id="inputGroupFile">Enviar</button>
     </div>
-    <input type="submit" value="Enviar" />
 </form>
+<br />
+<div id="divProcessing">    
+    <p>Avance actual del procesamiento del archivo</p>
+    <div id="divProProcessFile" class="progress">    
+        <div class="progress-bar progress-bar-striped progress-bar-animated" id="proProcessFile" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
+    </div>
+    <br />
+</div>
+<div class="divLogProcesamiento">
+    <table class="table table-striped">
+        <thead>
+            <tr class="table-dark">
+                <td>Línea</td>
+                <td>Descripción</td>
+                <td>Nombre del archivo</td>
+                <td>Tipo</td>
+                <td>Fecha y Hora</td>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <hr />
+</div>
+
+<div id="divDownloadFile" class="d-flex justify-content-end">
+    <button type="button" id="btnDownloadFile" class="btn btn-success">Descargar archivo</button>
+</div>
