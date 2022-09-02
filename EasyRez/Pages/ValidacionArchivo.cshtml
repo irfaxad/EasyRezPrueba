@@ -1,5 +1,5 @@
 ﻿@page
-@model PrivacyModel
+@model ValidacionArchivoModel
 @{
     ViewData["Title"] = "Validación de archivo";
 }
@@ -10,18 +10,62 @@
     </div>
 </div>
 <hr />
-
 <p>En este módulo se procesan los archivos de Cobranza Domiciliada.</p>
-<form method="post" id="frmUploadFile">
+
+@Html.AntiForgeryToken()
+<form method="post" id="frmUploadFile" enctype="multipart/form-data">
+    <div class="input-group">
+        <input type="file" class="form-control" id="txtUploadFile" asp-for="SubirArchivo.Archivo" 
+        aria-describedby="inputGroupFile" aria-label="Cargar" accept="text/plain">
+        <button class="btn btn-outline-success" type="submit" id="inputGroupFile" value="Enviar" asp-page-handler="Upload">Enviar</button>
+    </div>
+    <span asp-validation-for="SubirArchivo.Archivo" class="text-danger"></span>
+</form>
+@if (TempData["Message"] != null)
+{
+    if (TempData["Message"].ToString().Contains("OK")){
+        <div class="alert alert-success" role="alert">@TempData["Message"]</div>
+    }
+    if (TempData["Message"].ToString().Contains("ALERTA")){
+        <div class="alert alert-warning" role="alert">@TempData["Message"]</div>
+    }
+    if (TempData["Message"].ToString().Contains("ERROR")){
+        <div class="alert alert-danger" role="alert">@TempData["Message"]</div>
+    }
+}
+
+
+
+
+@*@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#txtUploadFile').on("change", function(){
+                var filename = $(this).val().split("\\").pop();
+                console.log(filename);
+            });
+        })
+    </script>
+}*@
+
+
+@*<div id="divFiles">
+    @Partial("~/Views/Files/Index.cshtml");
+</div>*@
+
+
+@*<p>En este módulo se procesan los archivos de Cobranza Domiciliada.</p>
+@Html.AntiForgeryToken();
+<form method="post" id="frmUploadFile" enctype="multipart/form-data">
     <div class="input-group">
         <input type="file" class="form-control" id="txtUploadFile" aria-describedby="inputGroupFile" aria-label="Cargar">
         <button class="btn btn-outline-secondary" type="submit" id="inputGroupFile">Enviar</button>
     </div>
 </form>
 <br />
-<div id="divProcessing">    
+<div id="divProcessing">
     <p>Avance actual del procesamiento del archivo</p>
-    <div id="divProProcessFile" class="progress">    
+    <div id="divProProcessFile" class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" id="proProcessFile" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%">75%</div>
     </div>
     <br />
@@ -45,3 +89,12 @@
 <div id="divDownloadFile" class="d-flex justify-content-end">
     <button type="button" id="btnDownloadFile" class="btn btn-success">Descargar archivo</button>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function(){
+            $('#txtUploadFile')
+        })
+    </script>
+}
+*@
