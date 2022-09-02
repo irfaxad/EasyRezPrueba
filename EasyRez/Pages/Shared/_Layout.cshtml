@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Nota: Estaba furioso por el maldito autorefresh. -->
-    <meta http-equiv="refresh" content="@{Random rand = new Random(); rand.Next(86500,100000);}">
+    
     <title>@ViewData["Title"] - EasyRez</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -55,6 +54,12 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @if (IsSectionDefined("Scripts"))
+    {
+        @RenderSection("Scripts", required: true)
+        ;
+    }
+
+    @*@await RenderSectionAsync("Scripts", required: false)*@
 </body>
 </html>
