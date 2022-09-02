@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.SignalR;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using static System.Net.WebRequestMethods;
 
 namespace EasyRez.Pages
 {
@@ -10,7 +12,7 @@ namespace EasyRez.Pages
     {
         private readonly ILogger<ValidacionArchivoModel> _logger;
         protected string status = "";
-        protected string partialPath = "\\Mi unidad\\Proyectos\\EasyRez\\Test\\Ejercicio\\EasyRez\\Files";
+        protected string partialPath = "\\Mi unidad\\Proyectos\\EasyRez\\Test\\Ejercicio\\EasyRez\\wwwroot\\files";
 
         [BindProperty]
         public SubirArchivosModel SubirArchivo { get; set; }
@@ -80,15 +82,16 @@ namespace EasyRez.Pages
                                 string tmpCadena = "";
                                 if(line == 1)
                                 {
-                                    tmpCadena = ConversionHeader(data);
+                                    tmpCadena = ConversionHeader(data, line, path);
                                     if(tmpCadena == " ")
                                     {
                                         sr.Close();
                                         @TempData["Message"] = "ERROR: El archivo tiene líneas con longitudes no permitidas para su procesamiento.";
                                         status = "ERROR: El archivo tiene líneas con longitudes no permitidas para su procesamiento.";
+                                        addStatus(status, path, 0, "ERROR");
                                         break;
                                     }
-                                    strHeader = tmpCadena;
+                                    strHeader = tmpCadena;                                    
                                 } 
                                 else
                                 {
@@ -98,16 +101,13 @@ namespace EasyRez.Pages
                                         sr.Close();
                                         @TempData["Message"] = "ERROR: El archivo tiene líneas con longitudes no permitidas para su procesamiento.";
                                         status = "ERROR: El archivo tiene líneas con longitudes no permitidas para su procesamiento.";
+                                        addStatus(status, path, 0, "ERROR");
                                         break;
                                     }
                                     linesDestino.Add(string.Concat(strHeader, "|", tmpCadena));
-
-                                    // TODO: Enviar status a BD
+                                                                    
 
                                     // TODO: Enviar resultado status a Front
-
-                                    // TODO!!: Crear botón e interacción para descargar el Procesado.txt
-
                                 }
 
                                 percentage = line / lineCount;
@@ -143,6 +143,7 @@ namespace EasyRez.Pages
                         {
                             @TempData["Message"] = "ERROR: Hubo un problema al procesar tu archivo. " + ex.Message;
                             status = "ERROR: Hubo un problema al procesar tu archivo.";
+                            addStatus(status, path, 0, "ERROR");                            
                         }
                         finally
                         {
@@ -166,11 +167,14 @@ namespace EasyRez.Pages
             return Page();
         }
 
-        public string ConversionHeader(string text)
+        public string ConversionHeader(string text, int num, string tPath)
         {
+            string file = Path.GetFileName(tPath);
+            
             if (text.Length != 153)
             {
-                status = "Se encontró una línea con longitud incorrecta. No se puede procesar.";
+                status = "ERROR: Se encontró una línea con longitud incorrecta. No se puede procesar.";
+                addStatus(status, file, num, "ERROR");
                 return " ";
             }
 
@@ -248,7 +252,17 @@ namespace EasyRez.Pages
             if(hF != "                                                                 ")
             {
                 status += "Header:Filler - Se encontró valor diferente a relleno de espacios permitido\n";
-            }            
+            }
+
+            if (status == "")
+            {
+                status = "OK: Se procesó el archivo correctamente.";
+            }
+
+            if (!status.Contains("OK"))
+            {
+                addStatus(status, file, 1, "WARNING");
+            }
 
             string[] arrHeader = { hTR, hCS, hE, hFP, hC, hNR, hIR, hNA, hIA, hNB, hIB, hNC, hA, hF };
 
@@ -257,9 +271,12 @@ namespace EasyRez.Pages
 
         public string ConversionDetalle(string text, int num, string tPath)
         {
+            string file = Path.GetFileName(tPath);
+
             if (text.Length != 153)
             {
-                status = "Se encontró una línea con longitud incorrecta. No se puede procesar.";
+                status = "ERROR: Se encontró una línea con longitud incorrecta. No se puede procesar.";
+                addStatus(status, file, num, "ERROR");
                 return " ";
             }
 
@@ -335,9 +352,31 @@ namespace EasyRez.Pages
                 status += "Detalle:ReferenciaNumérica - Se encontró valor no numérico\n";
             }
 
+            if(status == "")
+            {
+                status = "OK: Se procesó el archivo correctamente.";
+            }
+
+            if (!status.Contains("OK"))
+            {
+                addStatus(status, aNA, num, "WARNING");
+            }
+
             string[] arrHeader = { dTR, dFA, dNE, dRS, dRL, dI, dCB, dTC, dNC, dTM, dA, dF, dMD, dRN, aNA, aCF };
 
             return string.Concat(String.Join("|", arrHeader),"*");
+        }
+
+        public void addStatus(string status, string filename, int line, string risk)
+        {
+            Status oStatus = new Status();
+            oStatus.Stats = status;
+            oStatus.Line = line.ToString();
+            oStatus.Filename = Path.GetFileName(filename); ;
+            oStatus.Risk = risk;
+
+            StatusDataAccessLayer statusDataAccessLayer = new StatusDataAccessLayer();
+            statusDataAccessLayer.AddStatus(oStatus);
         }
     }
 

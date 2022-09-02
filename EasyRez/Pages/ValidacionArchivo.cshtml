@@ -33,7 +33,47 @@
         <div class="alert alert-danger" role="alert">@TempData["Message"]</div>
     }
 }
+<br />
+<div id="divDownloadFile" class="d-flex justify-content-end">
+    <button type="button" id="btnDownloadFile" class="btn btn-success">Descargar archivo</button>
+</div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {          
+
+            function checkFileExist(urlToFile) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('HEAD', urlToFile, false);
+                xhr.send();
+
+                if (xhr.status == "404") {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            function download(url) {
+                const a = document.createElement('a')
+                a.href = url
+                a.download = url.split('/').pop()
+                document.body.appendChild(a)
+                a.click()
+                document.body.removeChild(a)
+            }
+
+            $("#btnDownloadFile").on("click",function(){
+                var result = checkFileExist("/files/Procesado.txt");
+                if(result){
+                    download("/files/Procesado.txt");
+                } else {
+                    alert('Aún no hay archivo procesado.');
+                }
+            });
+        })
+    </script>
+}
 
 
 
@@ -86,15 +126,7 @@
     <hr />
 </div>
 
-<div id="divDownloadFile" class="d-flex justify-content-end">
-    <button type="button" id="btnDownloadFile" class="btn btn-success">Descargar archivo</button>
-</div>
 
-@section Scripts{
-    <script>
-        $(document).ready(function(){
-            $('#txtUploadFile')
-        })
-    </script>
-}
+
+
 *@
